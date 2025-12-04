@@ -33,11 +33,10 @@ load_dotenv()
 async def main(server_script_path=None):
     client = MCPClient()
     try:
-        # await client.connect_to_python_server(server_script_path)
-        await client.connect_to_server(
-            command="npx", 
-            args=["-y", "@playwright/mcp@latest", "--output-dir", "./"]
-        )
+        if server_script_path is None:
+            server_script_path = os.path.join(os.path.dirname(__file__), "simple_mcp_server.py")
+        await client.connect_to_server("python", [server_script_path])
+        # TODO: change to use Playwright MCP server
         await client.chat_loop()
     finally:
         await client.cleanup()
@@ -74,7 +73,10 @@ class MCPClient:
 
     async def connect_to_npx_server(self, package: str, additional_args: list[str] = None):
         """Helper method to connect to an NPX-based MCP server"""
-        pass
+        args = ["-y", package]
+        if additional_args:
+            args.extend(additional_args)
+        await self.connect_to_server("npx", args)
 
     async def cleanup(self):
         await self.exit_stack.aclose()
@@ -115,7 +117,7 @@ class MCPClient:
         else:
             for result in call_tool_result.content:
                 if result.type == "text":
-                    results.append(result.text)
+                    results.append(result.text[:128000])
                 else:
                     raise NotImplementedError(f"Unsupported result type: {result.type}")
 
