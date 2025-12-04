@@ -67,17 +67,6 @@ class MCPClient:
         tools = response.tools
         print(f"\nConnected to server ({command} {' '.join(args)}) with tools:", [tool.name for tool in tools])
 
-    async def connect_to_python_server(self, server_script_path: str):
-        """Helper method to connect to a Python MCP server"""
-        await self.connect_to_server("python", [server_script_path])
-
-    async def connect_to_npx_server(self, package: str, additional_args: list[str] = None):
-        """Helper method to connect to an NPX-based MCP server"""
-        args = ["-y", package]
-        if additional_args:
-            args.extend(additional_args)
-        await self.connect_to_server("npx", args)
-
     async def cleanup(self):
         await self.exit_stack.aclose()
 
