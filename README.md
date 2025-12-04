@@ -1,6 +1,6 @@
 # CS454 MCP Tutorial (251204)
 
-* Slides link: [TBD]
+* Slides: [Link to slides](https://github.com/coinse/cs454-mcp-tutorial/blob/main/slides/cs454_mcp_tutorial_251204.pdf)
 
 ### PlayWright MCP Agent
 
