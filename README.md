@@ -11,7 +11,7 @@
     - `python web_tester_chat_ref.py`
     
 - Hardcoding tool calling for initiating testing run for the target website:
-    - `python web_tester_actor_ref.py [https://sciencedirect.com](https://sciencedirect.com/)`
+    - `python web_tester_actor_ref.py https://sciencedirect.com`
 
 ### Pytest Agent
 
